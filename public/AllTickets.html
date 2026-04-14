@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>All Tickets</h1>
+    <table border="2">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody id="tbd">
+
+        </tbody>
+    </table>
+    <script>
+        fetch("http://localhost:3600/getAllTickets")
+            .then(res => res.json())
+            .then(data => {
+                if (data.msg === 'loginFailed') {
+                    window.location.href = "/login.html"
+                }
+                else {
+                    var trs = "";
+                    data.forEach((issue) => {
+                        trs += `
+                            <tr>
+                                <td>${issue.type}</td>
+                                <td>${issue.remarks}</td>
+                            </tr>
+                        `
+                    })
+                    document.getElementById("tbd").innerHTML = trs;
+                }
+
+            })
+    </script>
+</body>
+
+</html>

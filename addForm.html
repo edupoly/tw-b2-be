@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form onsubmit="addChey(event)">
+        <input type="text" name="p" value="10">
+        <br>
+        <input type="text" name="q" value="20">
+        <br>
+        <button>Add</button>
+    </form>
+    <h1 id="d1"></h1>
+    <script>
+        function addChey(ev) {
+            ev.preventDefault();
+            p = ev.target.p.value;
+            q = ev.target.q.value;
+            fetch("http://localhost:3600/addCheyyara", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ p, q })
+            }).then(res => res.json())
+                .then((data) => {
+                    document.getElementById("d1").innerText = data;
+                })
+        }
+    </script>
+</body>
+
+</html>

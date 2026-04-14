@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="t1">
+    <button onclick="addTodo()">Add Todo</button>
+    <ul id="todos">
+
+    </ul>
+    <script>
+        function getTodos() {
+            fetch("http://localhost:3600/todos")
+                .then(res => res.json())
+                .then(data => { genTodosUI(data) })
+        }
+        function addTodo() {
+            fetch("http://localhost:3600/todos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ newTodo: document.getElementById("t1").value })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("HI");
+                    getTodos()
+                })
+        }
+        function genTodosUI(alltodos) {
+            document.getElementById('todos').innerHTML = ""
+            alltodos.forEach((todo) => {
+                var ntd = document.createElement("li")
+                ntd.innerText = todo;
+                document.getElementById('todos').appendChild(ntd)
+            })
+        }
+        getTodos();
+    </script>
+</body>
+
+</html>
