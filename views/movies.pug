@@ -1,0 +1,10 @@
+html 
+    head 
+    body 
+        h1 Movies
+        ul(style={display:"flex","flex-wrap":"wrap"})
+            each movie in movies
+                li(style={display:"flex","flex-direction":"column",width:"100px",padding:"10px"})
+                    img(src= movie.imageUrl style={width:"100px"})
+                    b(style={"min-height":"100px"}) #{movie.title.slice(1,60)}
+        button next
