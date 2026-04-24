@@ -45,18 +45,19 @@ app.get("/todos", (req, res) => {
 });
 
 app.post("/todos", (req, res) => {
+  console.log(req.headers.token);
+  var k = jwt.verify(req.headers.token, "neekendu");
+  console.log("token details");
+  console.log(k.username);
   var fd = JSON.parse(fs.readFileSync(__dirname + "/todos.txt").toString());
-  var userdetails = jwt.verify(req.headers.token, "neekendu");
-
-  var newTodo = {
+  fd.push({
     title: req.body.todo,
-    username: userdetails.username,
+    username: k.username,
     status: "notcompleted",
     id: uuid(),
-  };
-  fd.push(newTodo);
+  });
   fs.writeFileSync(__dirname + "/todos.txt", JSON.stringify(fd));
-  res.send({ msg: "todoadded" });
+  res.send({ msg: "add ipoindi" });
 });
 
 app.delete("/todos/:id", (req, res) => {
@@ -67,7 +68,21 @@ app.delete("/todos/:id", (req, res) => {
     }
   });
   fs.writeFileSync(__dirname + "/todos.txt", JSON.stringify(fd));
-  res.send({ msg: "deleteipoindi" });
+  res.send({ msg: "delete ipoindi" });
+});
+
+app.put("/todos/:id", (req, res) => {
+  console.log(req.body);
+  var fd = JSON.parse(fs.readFileSync(__dirname + "/todos.txt").toString());
+  fd = fd.map((todo) => {
+    if (todo.id === req.params.id) {
+      return req.body;
+    } else {
+      return todo;
+    }
+  });
+  fs.writeFileSync(__dirname + "/todos.txt", JSON.stringify(fd));
+  res.send({ msg: "updated" });
 });
 
 app.listen(3600, () => {
