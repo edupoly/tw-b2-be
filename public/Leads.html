@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="leads"></ul>
+    <script>
+        fetch("http://localhost:4400/leads")
+            .then(res => res.json())
+            .then(data => {
+                data.forEach((lead) => {
+                    var nli = document.createElement("li")
+                    nli.innerText = lead.fullname;
+                    var dbtn = document.createElement("button")
+                    dbtn.innerText = "Delete"
+                    dbtn.onclick = function () {
+                        deleteChey(lead._id)
+                    }
+                    nli.appendChild(dbtn)
+                    document.getElementById("leads").appendChild(nli)
+                })
+            })
+        function deleteChey(id) {
+            fetch(`http://localhost:4400/leads/${id}`, {
+                method: "DELETE"
+            }).then(res => res.json())
+        }
+    </script>
+</body>
+
+</html>
