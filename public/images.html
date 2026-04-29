@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="d1">
+
+    </ul>
+    <script>
+        var ui = "";
+        fetch("http://localhost:3600/images")
+            .then(res => res.json())
+            .then(data => {
+                data.forEach((image) => {
+                    ui += `
+                        <li>
+                            <img src=${image.imageUrl} />
+                        </li>
+                    `
+                })
+                document.getElementById("d1").innerHTML = ui;
+            })
+    </script>
+</body>
+
+</html>
