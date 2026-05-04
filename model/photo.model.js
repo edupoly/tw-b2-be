@@ -6,7 +6,7 @@ var photoSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  isPublic:true
+  isPublic: Boolean,
 });
 var PhotoModel = mongoose.model("photo", photoSchema);
 module.exports = PhotoModel;
