@@ -48,6 +48,6 @@ app.get("/images", (req, res) => {
   });
 });
 
-app.listen(3600, () => {
+app.listen(process.env.PORT || 3600, () => {
   console.log("server 3600 port lo vintundi");
 });
