@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="socket.io.min.js"></script>
+</head>
+
+<body>
+    <h1>Lets understand Socket Communication</h1>
+    <h2>Live users:<span id="cnt"></span></h2>
+    <script>
+        const socket = io();
+        socket.on("usercount", (msg) => {
+            document.getElementById("cnt").innerText = msg.liveCount;
+        })
+    </script>
+</body>
+
+</html>
